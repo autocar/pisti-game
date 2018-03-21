@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Pisti</title>
+    <style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background: #000;
+   }
+    * {
+        font-family:"Courier New",serif;
+   }
+    #gameScene {
+        width: 100%;
+        height: 100%;
+        background: #003333;
+        z-index: 1;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        font-family: Geneva, Arial, Helvetica, sans-serif;
+        position:absolute;
+        top:0;
+        left:0;
+        font-size: .9em;
+   }
+    .cardSide {
+        background: #000;
+        border-radius: 6px;
+        opacity: 0.65;
+        position: relative;
+        z-index: 3;
+   }
+    .kart {
+        height: 120px;
+        width: 150px;
+        position: relative;
+        z-index: 77;
+   }
+    .orta {
+        background: rgba(0,0,0,0.4);
+        height:20%;
+        margin:auto;
+        width:40%;
+        padding:20px;
+        left: 30%;
+        z-index: 2;
+        position:relative;
+   }
+    .sayi {
+        font-weight:bold;
+        background-color: #ffff00;
+        border-radius:6px;
+        color: #003333;
+        padding: 10px;
+   }
+    table {
+        margin: auto;
+   }
+    #anaTablo td {
+        text-align:center;
+        height: 120px;
+        width: 150px;
+   }
+    .isimler td {
+        text-align:center;
+        height: 7px !IMPORTANT;
+        width: 2px !IMPORTANT ;
+   }
+    #furrkiAd {
+        background-color: #ffff00;
+        -moz-border-radius-topleft: 6px;
+        -moz-border-radius-topright: 6px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        vertical-align: text-bottom;
+   }
+    #userAd {
+        background-color: #ffff00;
+        -moz-border-radius-bottomleft: 6px;
+        -moz-border-radius-bottomright: 6px;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        vertical-align: text-top;
+   }
+    #karanlik {
+        display:none;
+        z-index: 79;
+        position:fixed;
+        height: 660px;
+        width: 1316px;
+        top:0;
+        left:0;
+        background: rgba(0,0,0,0.8);
+   }
+    #box {
+        margin-top:240px;
+        z-index:80;
+        display:none;
+        height:auto;
+        width:auto;
+        position:fixed;
+        padding:20px;
+        font-weight:bold;
+        font-family:Verdana,serif;
+        border-radius:6px;
+        background: -moz-linear-gradient(#FFDB4D, #B28F00);
+        background: -o-linear-gradient(#FFDB4D, #B28F00);
+        background: -webkit-linear-gradient(#FFDB4D, #B28F00);
+   }
+    #regBox {
+        margin-top:5%;
+        z-index:80;
+        display:none;
+        position:fixed;
+        height: 400px;
+        left:200px;
+        padding:20px;
+        font-weight:bold;
+        font-family:Verdana,serif;
+        border-radius:6px;
+        background: -moz-linear-gradient(#FFDB4D, #B28F00);
+        background: -o-linear-gradient(#FFDB4D, #B28F00);
+        background: -webkit-linear-gradient(#FFDB4D, #B28F00);
+   }
+    button {
+        border-radius: 6px;
+        padding:15px;
+        background-color: #65b042;
+        text-align: center;
+   }
+    #regBox ul {
+        list-style: none;
+        text-align:left;
+        padding:15px;
+   }
+    #regBox li {
+        padding:15px;
+        background-color: #65b042;
+        margin:10px;
+        border-radius: 6px;
+        cursor:pointer;
+   }
+
+
+    </style>
+
+    <script src="js/jq.js" type="text/javascript"></script>
+</head>
+<body onresize="resize();" onload="load();" >
+<div id="gameScene">
+    <div id="box">
+
+    </div>
+    <div id="regBox" style="border-radius: 6px !IMPORTANT;">
+
+        <ul id="zorlukSecim">
+            <li id="1">Kolay: Yerdeki Kartı Alırım</li>
+            <li id="2">Orta: Jokeri İyi Kullanırım</li>
+            <li id="3">Zor: Kart Sayarım</li>
+        </ul>
+    </div>
+    <div id="karanlik">
+
+    </div>
+    <table cellpadding="20" cellspacing="0" id="anaTablo" >
+
+        <tr class="cardSide" id=furrkiSide style="top:5%;">
+            <td><img id=d1 class="kart"  ></td>
+            <td><img id=d2 class="kart"  ></td>
+            <td><img id=d3 class="kart"  ></td>
+            <td><img id=d4 class="kart"  ></td>
+            <td><span class="sayi" id=furrkiScore  >0</span></td>
+        </tr>
+
+        <tr class="orta">
+            <td ></td>
+            <td ></td>
+            <td ><img id=ort class="kart" ></td>
+            <td  style="text-align:left;"><span class="sayi" id=ortSayi>0</span></td>
+            <td ></td>
+        </tr>
+
+        <tr class="cardSide" id=userSide style="top:5%;">
+            <td><img id=u1 class="kart"  ></td>
+            <td><img id=u2 class="kart"  ></td>
+            <td><img id=u3 class="kart"  ></td>
+            <td><img id=u4 class="kart"  ></td>
+            <td><span class="sayi" id=userScore  >0</span></td>
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex ;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+    function bubbleSort(dizi)
+    {
+        var change = true,j= 0,tmp;
+        while(change)
+        {
+            change = false;
+            j++;
+            for(var i = 0; i < dizi.length-j; i++)
+            {
+                if(dizi[i] < dizi[i+1])
+                {
+                    tmp = dizi[i];
+                    dizi[i] = dizi[i + 1];
+                    dizi[i + 1] = tmp;
+                    change = true;
+                }
+            }
+        }
+        return dizi;
+    }
+    function rand(min,max) { return Math.floor((Math.random() * ++max) + min); }
+    var deste = function()
+    {
+        this.cards = [];
+        for(var i = 0; i <= 3; i++)
+        {
+            for(var j = 0; j <= 12; j++)
+            {
+                this.cards[i*13+j] = i+"-"+j;
+            }
+        }
+        this.mix = function()
+        {
+            shuffle(this.cards);
+        };
+    };
+    var box = function()
+    {
+        this.show = function(ne,ms)
+        {
+            $("#karanlik").show();
+            $("#karanlik").css("width",$(window).width()+100);
+            $("#box").html(ne+"</br>");
+            $("#box").css({ width:"auto", height: "auto"});
+            $("#box").css("left",($(window).width()-$("#box").width())/2-30);
+            $("#box").fadeIn(1000);
+
+            var boxT = setTimeout(function(){ $("#box").fadeOut(Math.abs(ms-100)); $("#karanlik").hide(); clearTimeout(boxT); },ms);
+        };
+        this.zorlukSec = function(sinif)
+        {
+            $("#karanlik").show();
+
+            $("#regBox").css({ width:"auto", height: "auto"});
+            $("#regBox").css("left",($(window).width()-$("#regBox").width())/2-30);
+            $("#regBox").fadeIn(1000);
+            $("#regBox li").on("click",function(){
+                window.zorluk = $(this).attr("id");
+                $("#regBox").fadeOut(500);
+                $("#karanlik").fadeOut(500);
+                sinif.doStart();
+            });
+        };
+    };
+    var boxx = new box();
+
+    var game = function()
+    {
+        var sinif = this;
+        var destem = new deste();
+        var ai = new AI(this);
+        destem.mix();
+        this.userHand = [];
+        this.furrkiHand = [];
+        this.ort = "4-2";
+        this.ortSum = 0;
+        this.userScore = 0;
+        this.furrkiScore = 0;
+        this.turn = "user";
+        this.lastTaker = "";
+        this.zorluk = "1"; 
+        this.kartDagit = function()
+        {
+            this.userHand.length = 0;
+            this.furrkiHand.length = 0;
+            for(var i = 0; i < 4; i++)
+            {
+                this.userHand.push(destem.cards[destem.cards.length-1]);
+                destem.cards.pop();
+                this.furrkiHand.push(destem.cards[destem.cards.length-1]);
+                ai.seenCards.push(destem.cards[destem.cards.length-1].split("-")[1]);
+                destem.cards.pop();
+            }
+        };
+        this.yereKartKoy = function(ne)
+        {
+            sinif.ort = ne;
+            var card = new kart(ne,true);
+            card.show("#ort");
+            sinif.ortSum++;
+            $("#ortSayi").text(this.ortSum);
+
+
+        };
+        this.showCards = function()
+        {
+            for(var i = 1; i <= 4; i++)
+            {
+                var card = new kart(this.userHand[i-1],true);
+                card.show("#u"+i);
+                card = new kart(this.furrkiHand[i-1],false);
+                card.show("#d"+i);
+            }
+            var card = new kart(this.ort,true);
+            card.show("#ort");
+            $("#ortSayi").text(sinif.ortSum);
+            $("#furrkiScore").text(sinif.furrkiScore);
+            $("#userScore").text(sinif.userScore);
+        };
+        this.skorAlert = function()
+        {
+            if(sinif.furrkiScore > sinif.userScore)
+            {
+                boxx.show("furrki: Ben Kazandım.",1000);
+                sinif.ses.play(sinif.ses.kazanmak[rand(0,sinif.ses.kazanmak.length)]);
+            }
+            else
+                boxx.show("furrki: Sen Kazandın.",1000);
+        };
+        this.clearGame = function()
+        {
+            for(var i = 1; i <= 4; i++)
+            {
+                $("#u"+i).attr("src","");;
+                $("#d"+i).attr("src","");;
+            }
+            $("#ort").attr("src","");;
+            $("#ortSayi").text("0");
+            $("#furrkiScore").text("0");
+            $("#userScore").text("0")
+        };
+        this.startGame = function()
+        {
+            boxx.zorlukSec(this);
+
+        };
+        this.doStart = function()
+        {
+            sinif.zorluk = window.zorluk;
+            for(var i = 0; i < 4; i++)
+            {
+                this.yereKartKoy(destem.cards[destem.cards.length-1]);
+                destem.cards.pop();
+            }
+            this.kartDagit();
+            this.showCards();
+            if(Math.random() >= 0.5)
+                sinif.userTurn();
+            else
+                sinif.furrkiTurn();
+        }
+        this.desteController = function()
+        {
+            var r = 0;
+            for(var i = 0; i < 4; i++)
+            {
+                if(sinif.furrkiHand[i] != undefined) r=1;
+                if(sinif.userHand[i] != undefined) r=1;
+            }
+
+            if(destem.cards.length == 0 && r == 0)
+            {
+                if(sinif.lastTaker == "user")
+                    sinif.userScore += sinif.ortSum;
+                else
+                    sinif.furrkiScore += sinif.ortSum;
+                sinif.ortSum = 0;
+                sinif.ort = undefined;
+                sinif.skorAlert();
+                sinif.clearGame();
+                window.yeniBastan();
+                return true;
+            } else return false;
+
+        };
+        this.userTurn = function()
+        {
+            this.turn = "user";
+            function putin(event)
+            {
+                var secilenKart = event.data.a-1;
+                if(sinif.ortSum != 0) {
+                    if (sinif.userHand[secilenKart].split("-")[1] == sinif.ort.split("-")[1] ||
+                            (sinif.userHand[secilenKart].split("-")[1] == 10 && sinif.ortSum != 0))
+                    {
+                        sinif.userScore += sinif.ortSum
+                                + ((sinif.ortSum == 1 && sinif.userHand[secilenKart].split("-")[1] != 10) || (sinif.userHand[secilenKart].split("-")[1] == 10 && sinif.ort.split("-")[1] == 10) ? 9 : 1)
+                                + (((sinif.userHand[secilenKart].split("-")[1] == 10 || sinif.userHand[secilenKart].split("-")[1] == 0 ) && (sinif.ortSum == 1) && (sinif.userHand[secilenKart].split("-")[1] == sinif.ort.split("-")[1])) ? 10 : 0);
+                        sinif.ortSum = 0;
+                        sinif.ort = undefined;
+                        sinif.lastTaker = "user";
+                    } else sinif.yereKartKoy(sinif.userHand[secilenKart]);
+                } else sinif.yereKartKoy(sinif.userHand[secilenKart]);
+                ai.seenCards.push(sinif.userHand[secilenKart].split("-")[1]);
+                sinif.userHand[event.data.a-1] = undefined;
+
+                var r = 0;
+                for(var i = 0; i < 4; i++)
+                {
+                    if(sinif.furrkiHand[i] != undefined) r=1;
+                    if(sinif.userHand[i] != undefined) r=1;
+                }
+
+
+
+                if(!sinif.desteController())
+                {
+                    sinif.furrkiTurn();
+                    if(r == 0) sinif.kartDagit();
+                    sinif.showCards();
+
+                }
+                $("u"+event.data.a).unbind();
+            }
+            $("#furrkiSide").animate({background: "#BBB", opacity: 0.45 },700);
+            $("#userSide").animate({background: "#000", opacity: 1 },700,function()
+            {
+
+                for(var i = 1; i < 5; i++)
+                {
+                    if(sinif.userHand[i-1] != undefined)
+                        $("#u"+i).on( "click", {a:i},putin);
+                }
+
+            });
+
+        };
+        this.furrkiTurn = function()
+        {
+            this.turn = "furrki";
+            for(var i = 1; i < 5; i++)
+            {
+                $("#u"+i).unbind();
+            }
+            $("#userSide").animate({background: "#BBB", opacity: 0.45 },700);
+            $("#furrkiSide").animate({background: "#000", opacity: 1  },700,function()
+            {
+
+
+                var secilenKart = ai.kartSec(sinif.zorluk);
+
+
+                $("#d"+(secilenKart+1)).attr("src","");
+
+
+                if(sinif.ortSum != 0 && sinif.furrkiHand[secilenKart] != undefined) {
+                    if (sinif.furrkiHand[secilenKart].split("-")[1] == sinif.ort.split("-")[1] ||
+                            (sinif.furrkiHand[secilenKart].split("-")[1] == 10 && sinif.ortSum != 0))
+                    {
+                        sinif.furrkiScore += (sinif.ortSum
+                        + ((sinif.ortSum == 1 && sinif.furrkiHand[secilenKart].split("-")[1] != 10) || (sinif.furrkiHand[secilenKart].split("-")[1] == 10 && sinif.ort.split("-")[1] == 10) ? 9 : 1)
+                        + (((sinif.furrkiHand[secilenKart].split("-")[1] == 10 || sinif.furrkiHand[secilenKart].split("-")[1] == 0 ) && (sinif.ortSum == 1) && sinif.furrkiHand[secilenKart].split("-")[1] == sinif.ort.split("-")[1]) ? 10 : 0));
+                        sinif.ortSum = 0;
+                        sinif.ort = undefined;
+                        sinif.lastTaker = "furrki";
+
+                    } else sinif.yereKartKoy(sinif.furrkiHand[secilenKart]);
+                } else sinif.yereKartKoy(sinif.furrkiHand[secilenKart]);
+
+
+                sinif.furrkiHand[secilenKart] = undefined;
+                var r = 0;
+                for(var i = 0; i < 4; i++)
+                {
+                    if(sinif.furrkiHand[i] != undefined) r=1;
+                    if(sinif.userHand[i] != undefined) r=1;
+                }
+
+                if(!sinif.desteController())
+                {
+                    if(r == 0) sinif.kartDagit();
+                    sinif.showCards();
+                    window.user = setInterval(function(){ sinif.userTurn(); clearInterval(window.user); },700);
+                }
+            });
+
+        };
+    };
+    var kart = function(card,isAble)
+    {
+        if(isAble)
+            this.src = "cards/"+card+".png";
+        else
+            this.src = "cards/4-2.png";
+        this.show = function(element) // "#id" ".class" "elem"
+        {
+            if(card == undefined) this.src = "";
+            $(element).attr("src",this.src);
+        }
+    };
+    //===================================[AI furrki]=====================================
+    var AI = function(sinif)
+    {
+        this.seenCards = new Array();
+
+        this.kartSec = function(zorluk)
+        {
+            var hepsiJokermi = false;
+
+            var sayi = 0,joker = 0;
+            for(var i = 0; i < 4; i++) {
+                if(sinif.furrkiHand[i] != undefined)
+                {
+                    sayi++;
+                    if (sinif.furrkiHand[i].split("-")[1] == 10) joker++;
+                }
+
+            }
+            if(sayi == joker && sayi != 0) hepsiJokermi = true;
+            switch(zorluk)
+            {
+                case '1':
+                    var secilenKart;
+                    for(var i = 0; i < 4; i++)
+                    {
+                        if(sinif.furrkiHand[i] != undefined && sinif.ort != undefined)
+                            if(sinif.furrkiHand[i].split("-")[1] == sinif.ort.split("-")[1])
+                                secilenKart = i;
+                    }
+                    if(secilenKart == undefined)
+                    {
+                        secilenKart = rand(0, 3);
+                        while (sinif.furrkiHand[secilenKart] == undefined)
+                        {
+                            secilenKart = rand(0, 3);
+                        }
+                    }
+                    return secilenKart;
+                    break;
+                case '2':
+                    var secilenKart,jokerVarmi = false;
+                    for(var i = 0; i < 4; i++)
+                    {
+
+                        if(sinif.furrkiHand[i] != undefined && sinif.ort != undefined)
+                        {
+                            if (sinif.furrkiHand[i].split("-")[1] == sinif.ort.split("-")[1])
+                                secilenKart = i;
+                            if (sinif.furrkiHand[i].split("-")[1] == 10)
+                                jokerVarmi = true;
+                        }
+                    }
+
+                    if(secilenKart == undefined)
+                    {
+                        secilenKart = rand(0, 3);
+                        while (sinif.furrkiHand[secilenKart] == undefined || (!hepsiJokermi && sinif.furrkiHand[secilenKart].split("-")[1] == 10) )
+                        {
+                            secilenKart = rand(0, 3);
+                        }
+
+                    }
+
+
+                    return secilenKart;
+                    break;
+                case '3':
+
+                    var karts = new Array();
+                    for(var i = 0; i < 13; i++)
+                        karts[i] = 0;
+                    for(var i in this.seenCards)
+                        karts[this.seenCards[i]]++;
+                    console.log("[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]");
+                    console.log(karts);
+                    var kartlarim = new Array(), yerleri = new Array();
+                    var secilenKart,jokerVarmi = false;
+                    for(var i = 0; i < 4; i++)
+                    {
+                        if(sinif.furrkiHand[i] != undefined)
+                        {
+                            if(sinif.furrkiHand[i].split("-")[1] != 10)
+                            {
+                                kartlarim.push(sinif.furrkiHand[i].split("-")[1]);
+                                yerleri.push(i);
+                            }
+                        }
+                        if(sinif.furrkiHand[i] != undefined && sinif.ort != undefined)
+                        {
+                            if (sinif.furrkiHand[i].split("-")[1] == sinif.ort.split("-")[1])
+                                secilenKart = i;
+                            if (sinif.furrkiHand[i].split("-")[1] == 10)
+                            {
+                                jokerVarmi = true;
+                                if(sinif.ortSum > rand(6,12))
+                                {
+                                    secilenKart = i;
+                                }
+                            }
+
+                        }
+                    }
+
+                    if(secilenKart == undefined)
+                    {
+                        secilenKart = rand(0, 3);
+                        while (sinif.furrkiHand[secilenKart] == undefined || (!hepsiJokermi && sinif.furrkiHand[secilenKart].split("-")[1] == 10))
+                        {
+                            secilenKart = rand(0, 3);
+                        }
+
+                        if(Math.random() < 0.8) {
+                            if ((sinif.furrkiHand[secilenKart].split("-")[1] != 10)) {
+                                //===================== BUBBLE SORT
+                                var change = true, j = 0, tmp;
+                                while (change) {
+                                    change = false;
+                                    j++;
+                                    for (var i = 0; i < kartlarim.length - j; i++) {
+                                        if (karts[kartlarim[i]] < karts[kartlarim[i + 1]]) {
+                                            tmp = kartlarim[i];
+                                            kartlarim[i] = kartlarim[i + 1];
+                                            kartlarim[i + 1] = tmp;
+
+                                            tmp = yerleri[i];
+                                            yerleri[i] = yerleri[i + 1];
+                                            yerleri[i + 1] = tmp;
+                                            change = true;
+                                        }
+                                    }
+                                }
+                                console.log(kartlarim)
+                                //=======================
+                                secilenKart = yerleri[0];
+                            }
+                        }
+                    }
+                    return secilenKart;
+                    break;
+            }
+        };
+    };
+    //======================================= END of AI
+
+
+    var widthen = Array();
+    var heighten = Array();
+
+    function load()
+    {
+        $( "body *").not("li").each(function() {
+            widthen.push($(this).width());
+            heighten.push($(this).height());
+        });
+        $( "tr" ).each(function() {
+            widthen.push($(this).width());
+            heighten.push($(this).height());
+        });
+        $( "td" ).each(function() {
+            widthen.push($(this).width());
+            heighten.push($(this).height());
+        });
+        resize();
+    }
+    function resize()
+    {
+
+        var k = 0, windwidth = $(window).width()-50, windheight = $(window).height();
+        $( "body *" ).not("li").each(function( i ) {
+                if($(this).attr("id") != "regBox" && $(this).attr("id") != "zorlukSecim" ) {
+                    $(this).width(widthen[i] * windwidth / 1316);
+                    $(this).height(heighten[i] * windheight / 660);
+                }
+            k++;
+        });
+        $( "tr" ).each(function( i ) {
+            if($(this).attr("class") != "isimler") {
+                $(this).width(widthen[k] * windwidth / 1316);
+                $(this).height(heighten[k] * windheight / 660);
+            }
+            k++;
+        });
+        $( "td" ).each(function( i ) {
+
+                $(this).width(widthen[k] * windwidth / 1316);
+                $(this).height(heighten[k] * windheight / 660);
+
+                k++;
+        });
+        $("#anaTablo").css("margin-top", Math.abs($(window).height() - $("#anaTablo").height()) / 2 );
+        $("#gameScene").height($(window).height());
+        $("#gameScene").width($(window).width());
+        $("#regBox").css("left",($(window).width()-$("#regBox").width())/2);
+        $("#karanlik").css({height: $(document).height(), width: $(document).width()});
+    }
+    window.yeniBastan = function()
+    {
+        oyun = new game();
+        oyun.doStart();
+    };
+    var oyun = new game();
+    oyun.startGame();
+
+</script>
